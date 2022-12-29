@@ -7,8 +7,6 @@ function App() {
   const [fromPrice, setFromPrice] = React.useState(0);
   const [toCurrency, setToCurrency] = React.useState("USDT");
   const [toPrice, setToPrice] = React.useState(1);
-  const [rates, setRates] = React.useState({});
-
   const ratesRef = React.useRef({});
 
   React.useEffect(() => {
@@ -27,26 +25,22 @@ function App() {
   }, []);
 
   const onChangeFromPrice = (value) => {
-    const price = value / ratesRef.current[fromCurrency];
-    const res = price * ratesRef.current[toCurrency];
+    const res =
+      (ratesRef.current[toCurrency] * value) / ratesRef.current[fromCurrency];
     setToPrice(res.toFixed(6));
     setFromPrice(value);
   };
 
   const onChangeToPrice = (value) => {
-    const price = value / ratesRef.current[toCurrency];
-    const res = price * ratesRef.current[fromCurrency];
+    const res =
+      (ratesRef.current[fromCurrency] * value) / ratesRef.current[toCurrency];
     setToPrice(value);
     setFromPrice(res.toFixed(6));
   };
 
   React.useEffect(() => {
     onChangeFromPrice(fromPrice);
-  }, [fromCurrency]);
-
-  React.useEffect(() => {
-    onChangeToPrice(toPrice); // TODO: onChangeFromPrice
-  }, [toCurrency]);
+  }, [fromCurrency, toCurrency]);
 
   return (
     <div className="App">
