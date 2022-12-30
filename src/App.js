@@ -15,7 +15,7 @@ function App() {
   const [page, setPage] = React.useState(1);
   const [isLoading, setLoading] = React.useState(true);
   const [searchValue, setSearchValue] = React.useState("");
-  const [collections, setСollections] = React.useState([]);
+  const [collections, setCollections] = React.useState([]);
 
   React.useEffect(() => {
     setLoading(true);
@@ -27,7 +27,7 @@ function App() {
     )
       .then((res) => res.json())
       .then((json) => {
-        setСollections(json);
+        setCollections(json);
       })
       .catch((err) => {
         console.warn(err);
